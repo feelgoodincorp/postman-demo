@@ -1,0 +1,1463 @@
+{
+	"info": {
+		"_postman_id": "54f47eec-9347-4f8f-aec3-3a4b4f2dbcbb",
+		"name": "Demo collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "Empty fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8f39f04-a434-4396-90c4-15581d0ef5b9",
+								"exec": [
+									"pm.test.skip(\"Record can't be created with empty fields\", function () {\r",
+									"    //dummy stub to pass the test\r",
+									"    //pm.response.to.have.status(201);\r",
+									"\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 404]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "5301f014-3600-4007-a8c5-67b8b46e1123",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"\",\r\n    \"body\": \"\",\r\n    \"userId\": null\r\n}"
+						},
+						"url": "{{Basic URL}}/{{Posts section}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Valid fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0a80ec39-2bbc-477e-ab00-9d0c3ae14237",
+								"exec": [
+									"pm.test(\"Record can be created with valid fields\", function () {\r",
+									"    //check for 201 responce code(successful creation)\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The response has all properties\", () => {\r",
+									"    //parse the request and response properties to compare\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.body).to.not.null;\r",
+									"    const requestBodyObject = JSON.parse(pm.request.body);\r",
+									"    \r",
+									"    pm.expect(responseJson.title).to.eql(requestBodyObject.title);\r",
+									"    pm.expect(responseJson.body).to.eql(requestBodyObject.body);\r",
+									"    pm.expect(responseJson.userId).to.eql(requestBodyObject.userId);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "db126779-db91-4ff9-90a2-dbe365a1038a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{Valid Title}}\",\r\n    \"body\": \"{{Valid Body}}\",\r\n    \"userId\": \"{{ValidUserID}}\"\r\n}"
+						},
+						"url": "{{Basic URL}}/{{Posts section}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Unique item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4f44ff11-169a-44b4-a917-cb299f4db05e",
+								"exec": [
+									"pm.test(\"Posting existing record returns 409 response code\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "f2dbe48d-ee18-4712-be18-d4a7a0635a6c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{Valid Title}}\",\r\n    \"body\": \"{{Valid Body}}\",\r\n    \"userId\": \"{{ValidUserID}}\"\r\n}"
+						},
+						"url": "{{Basic URL}}/{{Posts section}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b46b2122-42a1-49c3-b193-f6a0825c03e7",
+								"exec": [
+									"pm.test.skip(\"Record can't be created with invalid fields\", function () {\r",
+									"    //dummy stub to pass the test\r",
+									"    //pm.response.to.have.status(201);\r",
+									"\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 404]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "771f79b6-893b-4732-9f2b-a83b140a93d2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{$randomInt}}\",\r\n    \"body\": \"{{$randomInt}}\",\r\n    \"userId\": \"{{$randomLoremSentence}}\"\r\n}"
+						},
+						"url": "{{Basic URL}}/{{Posts section}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Only required fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aa5fa768-7bee-4c3f-ae13-0fc3a11b0a96",
+								"exec": [
+									"pm.test(\"Record can be created with filled only required fields\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The response has all properties\", () => {\r",
+									"    //parse the request and response properties to compare\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.body).to.not.null;\r",
+									"    const requestBodyObject = JSON.parse(pm.request.body);\r",
+									"    \r",
+									"    pm.expect(responseJson.title).to.eql(requestBodyObject.title);\r",
+									"    pm.expect(responseJson.userId).to.eql(requestBodyObject.userId);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "67584877-e980-4dd2-a4ed-c4b24e9abff4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{$randomInt}}\",\r\n    \"userId\": \"{{$randomLoremSentence}}\"\r\n}"
+						},
+						"url": "{{Basic URL}}/{{Posts section}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Object creation date",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d5c37698-2afb-4c87-9048-a1ee9f0bcc5a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a5ac9934-df9c-460a-9b3b-d952b99caf29",
+								"exec": [
+									"\r",
+									"pm.test(\"Record successfully created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test.skip(\"Created record contains correct creation time\", function () {\r",
+									"    //parse the request and response creation time to compare\r",
+									"    //TODO add request execution positive delay handling\r",
+									"    var moment = require('moment');\r",
+									"    currentTimeStamp = moment().format((\"YYYY-MM-DDTHH:MM\"));\r",
+									"    pm.expect(Date.parse(currentTimeStamp)).to.be.eql(Date.parse(responseJson.createdAt));\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "04709209-a992-460d-94b9-95f47e4a2e57",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"url": "{{Basic URL}}/{{Posts section}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Empty JSON",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bd325fc5-c37e-4136-9990-745dc8827a4c",
+								"exec": [
+									"pm.test.skip(\"Record successfully created\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "11116d4d-4050-4cb5-83fb-4ed452d2eab4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{Basic URL}}/{{Posts section}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Nested  resources",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "270709f5-b27e-474f-8123-2329db0bba2b",
+								"exec": [
+									"pm.test(\"Record can be created as nested record\", function () {\r",
+									"    //check for 201 responce code(successful creation)\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The response has all properties\", () => {\r",
+									"    //parse the request and response properties to compare\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.body).to.not.null;\r",
+									"    const requestBodyObject = JSON.parse(pm.request.body);\r",
+									"    \r",
+									"    pm.expect(parseInt(responseJson.postId)).to.eql(requestBodyObject.postId);\r",
+									"    pm.expect(responseJson.id).to.eql(requestBodyObject.id);\r",
+									"    pm.expect(responseJson.name).to.eql(requestBodyObject.name);\r",
+									"    pm.expect(responseJson.email).to.eql(requestBodyObject.email);\r",
+									"    pm.expect(responseJson.body).to.eql(requestBodyObject.body);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "edc51955-2d00-43cc-b559-e99fa08e862f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"postId\": 1,\r\n    \"id\": 501,\r\n    \"name\": \"{{$randomUserName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"body\": \"{{$randomLoremParagraph}}\"\r\n}\r\n"
+						},
+						"url": "{{Basic URL}}/{{Posts section}}/1/{{Comments  section}}"
+					},
+					"response": []
+				}
+			],
+			"id": "a001d79c-6abb-40dc-8737-1607c4d2539a",
+			"description": "Contains POST-method API requests. Should be first in queue, GET-methods may request posted data.\n\nUnique item request should be after Valid fields request for idempotent service behaviour."
+		},
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "Access check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "00d0cf19-6029-4c7e-b55b-ffd16d08b296",
+								"exec": [
+									"pm.test(\"Access check\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "31f61da7-275e-43d2-a941-bfcc17984160",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization Key}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "{{Basic URL}}"
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "00d0cf19-6029-4c7e-b55b-ffd16d08b296",
+								"exec": [
+									"pm.test(\"Valid list response code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid list is not empty\", function () {\r",
+									"    let jsonResponse = pm.response.json();\r",
+									"    pm.expect(jsonResponse).not.empty;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "bb0d5da5-fbdb-4495-82f3-d466abfb6f18",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization Key}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "{{Basic URL}}/{{Posts section}}"
+					},
+					"response": []
+				},
+				{
+					"name": "List with offset, limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "00d0cf19-6029-4c7e-b55b-ffd16d08b296",
+								"exec": [
+									"pm.test(\"Valid list with offset and limit response code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid list with offset and limit is not empty\", function () {\r",
+									"    let jsonResponse = pm.response.json();\r",
+									"    pm.expect(jsonResponse).not.empty;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "fcf3c162-f2cf-40fa-8dff-57518f485c55",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization Key}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{Basic URL}}/{{Posts section}}?limit=10&offset=20",
+							"host": [
+								"{{Basic URL}}"
+							],
+							"path": [
+								"{{Posts section}}"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Empty list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "00d0cf19-6029-4c7e-b55b-ffd16d08b296",
+								"exec": [
+									"pm.test(\"Empty list response code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test.skip(\"Empty list is returned empty response body\", function () {\r",
+									"    let jsonResponse = pm.response.json();\r",
+									"    pm.expect(jsonResponse).is.empty;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "399c4dbc-11f7-4060-aee4-be6396ba82e9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization Key}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "{{Basic URL}}/{{Posts section}}/1/{{Comments  section}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid params",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "00d0cf19-6029-4c7e-b55b-ffd16d08b296",
+								"exec": [
+									"pm.test.skip(\"Invalid request response code\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "4b3dbba3-0e5a-4466-b1ee-dd06ea4864fb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization Key}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Basic URL}}/{{Posts section}}?{{invalidParam}}={{invalidValue}}",
+							"host": [
+								"{{Basic URL}}"
+							],
+							"path": [
+								"{{Posts section}}"
+							],
+							"query": [
+								{
+									"key": "{{invalidParam}}",
+									"value": "{{invalidValue}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Negative offset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "00d0cf19-6029-4c7e-b55b-ffd16d08b296",
+								"exec": [
+									"pm.test.skip(\"Negative offset request response code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Negative offset request returns first list item\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.body).to.not.null;\r",
+									"    pm.expect(responseJson[0].id).to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "17d1ffa8-65d5-4a0d-9dbe-0076af6e45d2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization Key}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{Basic URL}}/{{Posts section}}?offset=-20",
+							"host": [
+								"{{Basic URL}}"
+							],
+							"path": [
+								"{{Posts section}}"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "-20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non-existing offset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "00d0cf19-6029-4c7e-b55b-ffd16d08b296",
+								"exec": [
+									"pm.test.skip(\"Non-existing offset request response code\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test.skip(\"Non-existing offset request returns empty list\", function () {\r",
+									"    let jsonResponse = pm.response.json();\r",
+									"    pm.expect(jsonResponse).is.empty;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "57e7d2c4-c51c-4eda-b7e4-c23e99ab1717",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization Key}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{Basic URL}}/{{Posts section}}?offset=120",
+							"host": [
+								"{{Basic URL}}"
+							],
+							"path": [
+								"{{Posts section}}"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "120"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sorted list(desc)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "00d0cf19-6029-4c7e-b55b-ffd16d08b296",
+								"exec": [
+									"pm.test.skip(\"Descendant sort request response code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Descendant sort request returns correctly sorted list\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.body).to.not.null;\r",
+									"    for(let i = responseJson.length-1; i > 0; i--){\r",
+									"        pm.expect(responseJson[i-1].id).to.be.below(responseJson[i].id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "5ea835b4-6f2a-4690-b5c6-576812f1b651",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization Key}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{Basic URL}}/{{Posts section}}?{{descSortParam}}",
+							"host": [
+								"{{Basic URL}}"
+							],
+							"path": [
+								"{{Posts section}}"
+							],
+							"query": [
+								{
+									"key": "{{descSortParam}}",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "60e9bd18-06fb-44e1-89d7-5d46d70fb752",
+			"description": "Contains GET-method API requests."
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "Valid fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b46b2122-42a1-49c3-b193-f6a0825c03e7",
+								"exec": [
+									"pm.test(\"Record can be updated with valid fields\", function () {\r",
+									"    //check for 200/202 responce code(successful update)\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The response has all properties\", () => {\r",
+									"    //parse the request and response properties to compare\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.body).to.not.null;\r",
+									"    const requestBodyObject = JSON.parse(pm.request.body);\r",
+									"    \r",
+									"    pm.expect(responseJson.title).to.eql(requestBodyObject.title);\r",
+									"    pm.expect(responseJson.body).to.eql(requestBodyObject.body);\r",
+									"    pm.expect(responseJson.userId).to.eql(requestBodyObject.userId);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "eb029b80-1f33-46de-a282-88190b44e961",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"{{Valid Title}}\",\r\n    \"body\": \"{{Valid Body}}\",\r\n    \"userId\": 1\r\n}"
+						},
+						"url": "{{Basic URL}}/{{Posts section}}/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Particular update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b46b2122-42a1-49c3-b193-f6a0825c03e7",
+								"exec": [
+									"pm.test(\"Record can be updated with valid fields\", function () {\r",
+									"    //check for 200 responce code(successful update)\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The response has all properties\", () => {\r",
+									"    //parse the request and response properties to compare\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.body).to.not.null;\r",
+									"    const requestBodyObject = JSON.parse(pm.request.body);\r",
+									"    \r",
+									"    pm.expect(responseJson.id).to.eql(requestBodyObject.id);\r",
+									"    pm.expect(responseJson.title).to.eql(requestBodyObject.title);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "1c632559-6205-4d57-825b-33d4396990b4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"{{Valid Title}}\"\r\n}"
+						},
+						"url": "{{Basic URL}}/{{Posts section}}/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Non-existing id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b46b2122-42a1-49c3-b193-f6a0825c03e7",
+								"exec": [
+									"pm.test.skip(\"Record can be updated with non-existing record id\", function () {\r",
+									"    //check for 404 responce code\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "6dcc9c8a-6d48-47c9-ab24-4c1f05577588",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"{{Valid Title}}\",\r\n    \"body\": \"{{Valid Body}}\",\r\n    \"userId\": 1\r\n}"
+						},
+						"url": "{{Basic URL}}/{{Posts section}}/65656"
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b46b2122-42a1-49c3-b193-f6a0825c03e7",
+								"exec": [
+									"pm.test.skip(\"Record can be updated with invalid record id\", function () {\r",
+									"    //check for 400 responce code\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "e5183af9-e808-4f42-9dfa-7e8d8d96135c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"{{Valid Title}}\",\r\n    \"body\": \"{{Valid Body}}\",\r\n    \"userId\": 1\r\n}"
+						},
+						"url": "{{Basic URL}}/{{Posts section}}/{{invalidValue}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b46b2122-42a1-49c3-b193-f6a0825c03e7",
+								"exec": [
+									"pm.test.skip(\"Record can't be updated with invalid fields\", function () {\r",
+									"    //dummy stub to pass the test\r",
+									"    //pm.response.to.have.status(201);\r",
+									"\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 404]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "3e532113-27b3-426f-ac6f-edf26db6beec",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{$randomInt}}\",\r\n    \"body\": \"{{$randomInt}}\",\r\n    \"userId\": \"{{$randomLoremSentence}}\"\r\n}"
+						},
+						"url": "{{Basic URL}}/{{Posts section}}/1"
+					},
+					"response": []
+				}
+			],
+			"id": "5d5a21db-51d0-4450-a330-4fbcbc46d879",
+			"description": "Contains PUT-method API requests"
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "Particular deleting",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b46b2122-42a1-49c3-b193-f6a0825c03e7",
+								"exec": [
+									"pm.test(\"Record can be updated with valid fields\", function () {\r",
+									"    //check for 200 responce code(successful update)\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The response has all properties\", () => {\r",
+									"    //parse the request and response properties to compare\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.body).to.not.null;\r",
+									"    const requestBodyObject = JSON.parse(pm.request.body);\r",
+									"    \r",
+									"    pm.expect(responseJson.id).to.eql(requestBodyObject.id);\r",
+									"    pm.expect(responseJson.title).to.eql(requestBodyObject.title);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "1050410a-b104-4312-91da-44f5e07848dd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"{{Valid Title}}\"\r\n}"
+						},
+						"url": "{{Basic URL}}/{{Posts section}}/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Existing id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b46b2122-42a1-49c3-b193-f6a0825c03e7",
+								"exec": [
+									"pm.test(\"Existed record can be deleted\", function () {\r",
+									"    //check for 200 responce code\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "520e161b-13cb-480d-96d5-bf7b2b8cdb23",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{Basic URL}}/{{Posts section}}/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Non-existing id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b46b2122-42a1-49c3-b193-f6a0825c03e7",
+								"exec": [
+									"pm.test.skip(\"Non-existing record deleting response code\", function () {\r",
+									"    //check for 404 responce code\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "3a738516-1605-4bf8-a0c2-725d65d34e79",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{Basic URL}}/{{Posts section}}/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b46b2122-42a1-49c3-b193-f6a0825c03e7",
+								"exec": [
+									"pm.test.skip(\"Invalid record id delete response code\", function () {\r",
+									"    //check for 404 responce code\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "13e43ec3-939b-4989-9700-48df78e02a45",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"{{Valid Title}}\",\r\n    \"body\": \"{{Valid Body}}\",\r\n    \"userId\": 1\r\n}"
+						},
+						"url": "{{Basic URL}}/{{Posts section}}/{{invalidValue}}"
+					},
+					"response": []
+				}
+			],
+			"id": "e143b771-e200-473a-a6d2-567495ad436b",
+			"description": "Contains DELETE-method API requests. Should be last in queue, to delete all created data"
+		},
+		{
+			"name": "Common",
+			"item": [
+				{
+					"name": "Same item Delete/Post",
+					"item": [
+						{
+							"name": "Create record",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0a80ec39-2bbc-477e-ab00-9d0c3ae14237",
+										"exec": [
+											"pm.test(\"Create record before deleting\", function () {\r",
+											"    //check for 201 responce code(successful creation)\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"The response has all properties\", () => {\r",
+											"    //parse the request and response properties to compare\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson.body).to.not.null;\r",
+											"    const requestBodyObject = JSON.parse(pm.request.body);\r",
+											"    \r",
+											"    pm.expect(responseJson.title).to.eql(requestBodyObject.title);\r",
+											"    pm.expect(responseJson.body).to.eql(requestBodyObject.body);\r",
+											"    pm.expect(responseJson.userId).to.eql(requestBodyObject.userId);\r",
+											"\r",
+											"    pm.collectionVariables.set(\"temporaryRecordID\", responseJson.id);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "3d7d922b-ff4b-427b-9384-ee459a134b9e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json; charset=UTF-8",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{Valid Title}}\",\r\n    \"body\": \"{{Valid Body}}\",\r\n    \"userId\": \"{{ValidUserID}}\"\r\n}"
+								},
+								"url": "{{Basic URL}}/{{Posts section}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete record",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b46b2122-42a1-49c3-b193-f6a0825c03e7",
+										"exec": [
+											"pm.test(\"Existed record can be deleted\", function () {\r",
+											"    //check for 200 responce code\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "769341c5-03a0-4417-a3b3-fad498bac4b6",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json; charset=UTF-8",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": "{{Basic URL}}/{{Posts section}}/{{temporaryRecordID}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Create record",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0a80ec39-2bbc-477e-ab00-9d0c3ae14237",
+										"exec": [
+											"pm.test(\"Deleted record can be created with same fields\", function () {\r",
+											"    //check for 201 responce code(successful creation)\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"The response has all properties\", () => {\r",
+											"    //parse the request and response properties to compare\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson.body).to.not.null;\r",
+											"    const requestBodyObject = JSON.parse(pm.request.body);\r",
+											"    \r",
+											"    pm.expect(responseJson.title).to.eql(requestBodyObject.title);\r",
+											"    pm.expect(responseJson.body).to.eql(requestBodyObject.body);\r",
+											"    pm.expect(responseJson.userId).to.eql(requestBodyObject.userId);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "c61f5a58-befc-4e5f-a632-46b60ed8f784",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json; charset=UTF-8",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{Valid Title}}\",\r\n    \"body\": \"{{Valid Body}}\",\r\n    \"userId\": \"{{ValidUserID}}\"\r\n}"
+								},
+								"url": "{{Basic URL}}/{{Posts section}}"
+							},
+							"response": []
+						}
+					],
+					"id": "02a24082-51f7-41e5-86c5-631e95604ccf"
+				},
+				{
+					"name": "Response time",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b12e0358-1ec7-4b83-9e1d-3d33b15d6a30",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "76bc60ca-f566-4061-9b83-1ea585e21101",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "{{Basic URL}}/{{Posts section}}/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete record(post-condition)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b46b2122-42a1-49c3-b193-f6a0825c03e7",
+								"exec": [
+									"pm.test(\"Record can be deleted as existed\", function () {\r",
+									"    //check for 200 responce code\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "315a80a6-2c9b-45b7-9e61-edc3765db263",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{Basic URL}}/{{Posts section}}/1"
+					},
+					"response": []
+				}
+			],
+			"id": "e1977a8d-4bf9-4dd0-9690-9b72ed85e7a6"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "12c0f240-16ca-49fa-9159-983740a7607b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a7bbb69a-453e-49da-a7a8-32f73c861ea6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Basic URL",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Authorization Key",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Posts section",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Comments  section",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Valid Title",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Valid Body",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "ValidUserID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "invalidParam",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "invalidValue",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "descSortParam",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "ascSortParam",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "temporaryRecordID",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
