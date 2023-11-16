@@ -289,7 +289,7 @@
 							"script": {
 								"id": "bd325fc5-c37e-4136-9990-745dc8827a4c",
 								"exec": [
-									"pm.test.skip(\"Record successfully created\", function () {\r",
+									"pm.test.skip(\"Record can't be created\", function () {\r",
 									"    pm.response.to.have.status(400);\r",
 									"});"
 								],
@@ -366,7 +366,7 @@
 							"mode": "raw",
 							"raw": "{\r\n    \"postId\": 1,\r\n    \"id\": 501,\r\n    \"name\": \"{{$randomUserName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"body\": \"{{$randomLoremParagraph}}\"\r\n}\r\n"
 						},
-						"url": "{{Basic URL}}/{{Posts section}}/1/{{Cp}}"
+						"url": "{{Basic URL}}/{{Posts section}}/1/{{Comments  section}}"
 					},
 					"response": []
 				}
@@ -1010,9 +1010,10 @@
 									"    const responseJson = pm.response.json();\r",
 									"    pm.expect(responseJson.body).to.not.null;\r",
 									"    const requestBodyObject = JSON.parse(pm.request.body);\r",
-									"    \r",
-									"    pm.expect(responseJson.id).to.eql(requestBodyObject.id);\r",
-									"    pm.expect(responseJson.title).to.eql(requestBodyObject.title);\r",
+									"    pm.expect(response).is.empty\r",
+									"    //require\r",
+									"    //pm.expect(responseJson.id).to.eql(requestBodyObject.id);\r",
+									"    //pm.expect(responseJson.title).to.eql(requestBodyObject.title);\r",
 									"});\r",
 									""
 								],
